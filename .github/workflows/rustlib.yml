@@ -47,6 +47,7 @@ jobs:
       with:
         toolchain: ${{ matrix.rust }}
         override: true
+        components: rustfmt
 
     - name: Cache dependencies
       uses: Swatinem/rust-cache@v2
