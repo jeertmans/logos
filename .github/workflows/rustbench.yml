@@ -20,22 +20,13 @@ jobs:
       uses: Swatinem/rust-cache@v2
 
     - name: Run benchmark
-      run: cargo +nightly bench | tee output.txt
-
-    - name: Echo pwd
-      run: echo $(pwd)
-
-    - name: Download previous benchmark data
-      uses: actions/cache@v1
-      with:
-        path: ./cache
-        key: ${{ runner.os }}-benchmark
+      run: cargo bench | tee benchmark-output.txt
 
     - name: Store benchmark result
-      uses: benchmark-action/github-action-benchmark@v1.16.2
+      uses: benchmark-action/github-action-benchmark@v1
       with:
         tool: 'cargo'
-        output-file-path: output.txt
+        output-file-path: benchmark-output.txt
         external-data-json-path: ./cache/benchmark-data.json
         fail-on-alert: true
         # GitHub API token to make a commit comment
