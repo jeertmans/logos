@@ -16,11 +16,14 @@ jobs:
     - name: Install stable toolchain
       uses: dtolnay/rust-toolchain@nightly
 
+    - name: Cache dependencies
+      uses: Swatinem/rust-cache@v2
+
     - name: Run benchmark
       run: cargo +nightly bench | tee output.txt
 
     - name: Echo benchmark output
-      run: echo output.txt
+      run: cat output.txt
 
     - name: Download previous benchmark data
       uses: actions/cache@v1
