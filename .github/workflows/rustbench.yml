@@ -30,7 +30,9 @@ jobs:
     - name: Run Benchmarks on changes
       run: cargo bench --bench bench -- --save-baseline changes
 
-    - run: git checkout ${{ github.event.pull_request.base.sha }}
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.base.sha }}
 
     - name: Run Benchmarks before changes
       run: cargo bench --bench bench -- --save-baseline before
