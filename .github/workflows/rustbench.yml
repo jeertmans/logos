@@ -13,16 +13,28 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Install nightly toolchain
-      uses: dtolnay/rust-toolchain@nightly
+    - run: pip install term2md
+
+    - name: Install stable toolchain
+      uses: dtolnay/rust-toolchain@stable
 
     - name: Cache dependencies
       uses: Swatinem/rust-cache@v2
 
-    - name: Run Benchmarks
-      run: cargo bench | tee benchmark-output.txt
+    - name: Install Critcmp
+      uses: baptiste0928/cargo-install@v2
+      with:
+        crate: critcmp
+        version: latest
+        use-tool-cache: true
+
+    - name: Run Benchmarks on changes
+      run: cargo bench --bench bench -- --save-baseline changes
 
     - run: git checkout "$GITHUB_BASE_REF"
 
-    - name: Run benchmark
-      run: cargo bench | tee benchmark-output.txt
+    - name: Run Benchmarks before changes
+      run: cargo bench --bench bench -- --save-baseline before
+
+    - name: Compare benchmarks
+      run: critcmp before changes --color=always | term2md >> $GITHUB_STEP_SUMMARY
