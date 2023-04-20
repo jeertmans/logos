@@ -26,12 +26,11 @@ jobs:
       with:
         crate: critcmp
         version: latest
-        use-tool-cache: true
 
     - name: Run Benchmarks on changes
       run: cargo bench --bench bench -- --save-baseline changes
 
-    - run: git checkout "$GITHUB_BASE_REF"
+    - run: git checkout ${{ github.event.pull_request.head.sha }}
 
     - name: Run Benchmarks before changes
       run: cargo bench --bench bench -- --save-baseline before
