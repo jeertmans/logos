@@ -8,7 +8,7 @@ Possible values are defined recursively and can be any of the following:
 {{#include ../../../logos/examples/json.rs:values}}
 ```
 
-Object are delimites with braces `{` and `}`, arrays with brackets `[` and `]`, and values with commas `,`. Newlines, tabs or spaces should be ignored by the lexer.
+Object are delimited with braces `{` and `}`, arrays with brackets `[` and `]`, and values with commas `,`. Newlines, tabs or spaces should be ignored by the lexer.
 
 Knowing that, we can construct a lexer with `Logos` that will identify all those cases:
 
@@ -18,7 +18,7 @@ Knowing that, we can construct a lexer with `Logos` that will identify all those
 
 > NOTE: the hardest part is to define valid regexes for `Number` and `String` variants. The present solution was inspired by [this stackoverflow thread](https://stackoverflow.com/questions/32155133/regex-to-match-a-json-string).
 
-Once we have our tokens, we must parse them into actual JSON values. We will proceed be creating 3 functions:
+Once we have our tokens, we must parse them into actual JSON values. We will proceed by creating 3 functions:
 
 + `parse_value` for parsing any JSON object, without prior knowledge of its type;
 + `parse_array` for parsing an array, assuming we matched `[`;
