@@ -1,4 +1,4 @@
-use criterion::{black_box, criterion_group, criterion_main, Criterion, Throughput};
+use criterion::{criterion_group, criterion_main, Criterion, Throughput};
 use logos_derive::Logos;
 
 static NUMBERS: &str = r"
@@ -39,10 +39,11 @@ fn count_ok_range(s: &str) -> usize {
 }
 
 fn bench_count_ok(c: &mut Criterion) {
-
     let mut group = c.benchmark_group("count_ok");
     group.throughput(Throughput::Bytes(NUMBERS.len() as u64));
-    group.bench_with_input("alternate", &NUMBERS, |b, &s| b.iter(|| count_ok_alternate(s)));
+    group.bench_with_input("alternate", &NUMBERS, |b, &s| {
+        b.iter(|| count_ok_alternate(s))
+    });
     group.bench_with_input("range", &NUMBERS, |b, &s| b.iter(|| count_ok_range(s)));
 }
 

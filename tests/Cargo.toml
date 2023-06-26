@@ -16,3 +16,7 @@ criterion = "0.4"
 [[bench]]
 name = "bench"
 harness = false
+
+[[bench]]
+name = "bench_optimizations"
+harness = false
