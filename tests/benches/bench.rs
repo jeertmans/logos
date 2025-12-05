@@ -3,6 +3,9 @@ use logos_derive::Logos;
 
 #[derive(Debug, Clone, Copy, PartialEq, Logos)]
 pub enum Token {
+    #[token("foo")]
+    Foo,
+
     #[regex(r"[ \n\t\f]", logos::skip)]
     InvalidToken,
 
